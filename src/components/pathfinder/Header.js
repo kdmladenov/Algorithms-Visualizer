@@ -5,13 +5,12 @@ const Header = ({ nodeSize, setNodeSize }) => {
 
   return (
     <div>
-      <label class="text-warning" for="nodes-amount">
+      <label className="text-warning" htmlFor="nodes-amount">
         Resize the Grid
       </label>
       <input
         name="nodes-amount"
         type="range"
-        class="form-range"
         id="nodes-slider"
         value={nodeSize}
         onChange={(e) => setNodeSize(e.target.value)}

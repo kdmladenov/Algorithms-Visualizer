@@ -1,11 +1,41 @@
-.node{
-  border: 1px solid grey; 
+.node {
+  border: 1px solid grey;
+  background-color: #fff;
+  border-radius: 3px;
+  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.2);
+  color: #333;
 }
 
-.node-start{
+.node-start {
+  color: green;
+  font-size: 1.5rem;
+  margin: auto;
   background-color: green;
 }
 
-.node-end{
-  background-color: blue;
+.node-end {
+  /* font-size: 1.5rem;
+  margin: auto;
+  color: red; */
+  background-color: red;
+}
+
+.node-wall {
+  /* font-size: 1.5rem;
+  margin: auto;
+  color: red; */
+  background-color: black;
+  animation-name: wall;
+  animation-duration: 0.3s;
+  animation-timing-function: ease-in-out;
+}
+
+@keyframes wall {
+  from {
+    transform: scale(0.3);
+  }
+
+  to {
+    transform: scale(1);
+  }
 }
