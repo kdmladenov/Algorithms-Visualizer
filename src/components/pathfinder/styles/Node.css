@@ -1,0 +1,11 @@
+.node{
+  border: 1px solid grey; 
+}
+
+.node-start{
+  background-color: green;
+}
+
+.node-end{
+  background-color: blue;
+}

@@ -1,0 +1,15 @@
+.grid {
+  width: 95%;
+  height: 95%;
+  margin: auto;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+}
+
+.col {
+  display: flex;
+  flex-direction: row;
+}
