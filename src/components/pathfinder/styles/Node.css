@@ -39,3 +39,7 @@
     transform: scale(1);
   }
 }
+
+.node-weight {
+  background-color: blue;
+}

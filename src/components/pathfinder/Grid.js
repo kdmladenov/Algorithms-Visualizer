@@ -15,7 +15,7 @@ const Grid = ({ size }) => {
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
   const [relocateStart, setRelocateStart] = useState(false);
   const [relocateEnd, setRelocateEnd] = useState(false);
-  console.log(relocateStart, 'relocateStart');
+
   const handleMouseDown = (row, col) => {
     if (startRow === row && startCol === col) {
       setRelocateStart(true);
@@ -50,10 +50,26 @@ const Grid = ({ size }) => {
     setRelocateEnd(false);
   };
 
+  const handleMouseDoubleClick = (row, col) => {
+    if ((startRow === row && startCol === col) || (endRow === row && endCol === col)) return;
+    setGrid(gridWithToggleWeight(row, col));
+  };
+
   const gridWithToggleWall = (row, col) => {
     const gridCopy = [...grid];
     const nodeToBeToggled = gridCopy[row][col];
     const toggledNode = { ...nodeToBeToggled, isWall: !nodeToBeToggled.isWall };
+    gridCopy[row][col] = toggledNode;
+
+    return gridCopy;
+  };
+
+  const gridWithToggleWeight = (row, col) => {
+    const gridCopy = [...grid];
+    const nodeToBeToggled = gridCopy[row][col];
+    const toggledNode = { ...nodeToBeToggled, isWeight: !nodeToBeToggled.isWeight };
+
+    console.log(toggledNode);
     gridCopy[row][col] = toggledNode;
 
     return gridCopy;
@@ -95,6 +111,7 @@ const Grid = ({ size }) => {
           distance: Infinity,
           isVisited: false,
           isWall: false,
+          isWeight: false,
           previousNode: null
         };
 
@@ -110,7 +127,7 @@ const Grid = ({ size }) => {
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="col">
             {row.map((node, nodeIndex) => {
-              const { row, col, isEnd, isStart, size, isWall } = node;
+              const { row, col, isEnd, isStart, size, isWall, isWeight } = node;
               return (
                 <Node
                   key={nodeIndex}
@@ -120,10 +137,12 @@ const Grid = ({ size }) => {
                   isEnd={isEnd}
                   isWall={isWall}
                   size={size}
+                  isWeight={isWeight}
                   mouseIsPressed={mouseIsPressed}
                   onMouseDown={(row, col) => handleMouseDown(row, col)}
                   onMouseHover={(row, col) => handleMouseHover(row, col)}
                   onMouseUp={(row, col) => handleMouseUp(row, col)}
+                  onMouseDoubleClick={(row, col) => handleMouseDoubleClick(row, col)}
                 />
               );
             })}

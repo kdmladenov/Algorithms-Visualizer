@@ -13,6 +13,7 @@ const Node = ({
   onMouseDown,
   onMouseHover,
   onMouseUp,
+  onMouseDoubleClick,
   size
 }) => {
   const nodeConditionalClassName = isEnd
@@ -25,19 +26,21 @@ const Node = ({
     ? 'weight'
     : '';
 
-  return (
-    <div
-      style={{ height: `${size}vh`, width: `${size}vw` }}
-      id={`node-${row}-${col}`}
-      className={`node node-${nodeConditionalClassName}`}
-      onMouseDown={() => onMouseDown(row, col)}
-      onMouseEnter={() => onMouseHover(row, col)}
-      onMouseUp={() => onMouseUp(row, col)}
-    >
-      {/* {nodeConditionalClassName === 'start' && <i className="fas fa-play"></i>}
+    if (nodeConditionalClassName === 'weight') console.log('node');
+      return (
+        <div
+          style={{ height: `${size}vh`, width: `${size}vw` }}
+          id={`node-${row}-${col}`}
+          className={`node node-${nodeConditionalClassName}`}
+          onMouseDown={() => onMouseDown(row, col)}
+          onMouseEnter={() => onMouseHover(row, col)}
+          onMouseUp={() => onMouseUp(row, col)}
+          onDoubleClick={() => onMouseDoubleClick(row, col)}
+        >
+          {/* {nodeConditionalClassName === 'start' && <i className="fas fa-play"></i>}
       {nodeConditionalClassName === 'end' && <i className="fas fa-stop"></i>} */}
-    </div>
-  );
+        </div>
+      );
 };
 
 export default Node;
