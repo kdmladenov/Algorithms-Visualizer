@@ -10,7 +10,7 @@ const Node = ({
   isEnd,
   isWall,
   isWeight,
-  onMouseClick,
+  onMouseDown,
   onMouseHover,
   onMouseUp,
   size
@@ -30,9 +30,9 @@ const Node = ({
       style={{ height: `${size}vh`, width: `${size}vw` }}
       id={`node-${row}-${col}`}
       className={`node node-${nodeConditionalClassName}`}
-      onMouseDown={() => onMouseClick(row, col)}
+      onMouseDown={() => onMouseDown(row, col)}
       onMouseEnter={() => onMouseHover(row, col)}
-      onMouseUp={() => onMouseUp()}
+      onMouseUp={() => onMouseUp(row, col)}
     >
       {/* {nodeConditionalClassName === 'start' && <i className="fas fa-play"></i>}
       {nodeConditionalClassName === 'end' && <i className="fas fa-stop"></i>} */}

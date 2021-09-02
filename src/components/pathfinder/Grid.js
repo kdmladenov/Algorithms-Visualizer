@@ -3,27 +3,51 @@ import './styles/Grid.css';
 import Node from './Node';
 
 const Grid = ({ size }) => {
-  const [grid, setGrid] = useState([]);
-  const [mouseIsPressed, setMouseIsPressed] = useState(false);
-
   const aspectRatio = 16 / 9; // cols/rows
   const rowCount = Math.floor(90 / size);
   const colCount = Math.floor(rowCount * aspectRatio);
 
-  let startRow = Math.floor(Math.random() * rowCount);
-  let startCol = Math.floor(Math.random() * colCount);
-  let endRow = Math.floor(Math.random() * rowCount);
-  let endCol = Math.floor(Math.random() * colCount);
+  const [grid, setGrid] = useState([]);
+  const [startRow, setStartRow] = useState(Math.floor(Math.random() * rowCount));
+  const [startCol, setStartCol] = useState(Math.floor(Math.random() * colCount));
+  const [endRow, setEndRow] = useState(Math.floor(Math.random() * rowCount));
+  const [endCol, setEndCol] = useState(Math.floor(Math.random() * colCount));
+  const [mouseIsPressed, setMouseIsPressed] = useState(false);
+  const [relocateStart, setRelocateStart] = useState(false);
+  const [relocateEnd, setRelocateEnd] = useState(false);
+  console.log(relocateStart, 'relocateStart');
+  const handleMouseDown = (row, col) => {
+    if (startRow === row && startCol === col) {
+      setRelocateStart(true);
+      setGrid(gridWithRelocatedStartEnd(row, col));
+    } else if (endRow === row && endCol === col) {
+      setRelocateEnd(true);
+      setGrid(gridWithRelocatedStartEnd(row, col));
+    } else {
+      setGrid(gridWithToggleWall(row, col));
+    }
 
-  const handleMouseClick = (row, col) => {
-    setGrid(gridWithToggleWall(row, col));
     setMouseIsPressed(true);
   };
 
   const handleMouseHover = (row, col) => {
-    if (!mouseIsPressed) return; //goes to handleMouseClick
-    if (grid[row][col].isWall) return;
+    if (!mouseIsPressed || relocateStart || relocateEnd || grid[row][col].isWall) return; //goes to handleMouseClick
     setGrid(gridWithToggleWall(row, col));
+  };
+
+  const handleMouseUp = (row, col) => {
+    if (relocateStart) {
+      setStartRow(row);
+      setStartCol(col);
+    }
+    if (relocateEnd) {
+      setEndRow(row);
+      setEndCol(col);
+    }
+    setMouseIsPressed(false);
+    setGrid(gridWithRelocatedStartEnd(row, col));
+    setRelocateStart(false);
+    setRelocateEnd(false);
   };
 
   const gridWithToggleWall = (row, col) => {
@@ -31,6 +55,28 @@ const Grid = ({ size }) => {
     const nodeToBeToggled = gridCopy[row][col];
     const toggledNode = { ...nodeToBeToggled, isWall: !nodeToBeToggled.isWall };
     gridCopy[row][col] = toggledNode;
+
+    return gridCopy;
+  };
+
+  const gridWithRelocatedStartEnd = (row, col) => {
+    const gridCopy = [...grid];
+    let nodeToBeRelocated = gridCopy[row][col];
+    if (relocateStart) {
+      if (mouseIsPressed) {
+        nodeToBeRelocated = { ...nodeToBeRelocated, isStart: false };
+      } else {
+        nodeToBeRelocated = { ...nodeToBeRelocated, isStart: true };
+      }
+    }
+    if (relocateEnd) {
+      if (mouseIsPressed) {
+        nodeToBeRelocated = { ...nodeToBeRelocated, isEnd: false };
+      } else {
+        nodeToBeRelocated = { ...nodeToBeRelocated, isEnd: true };
+      }
+    }
+    gridCopy[row][col] = nodeToBeRelocated;
 
     return gridCopy;
   };
@@ -56,8 +102,7 @@ const Grid = ({ size }) => {
       }
     }
     setGrid(nodes);
-    // eslint-disable-next-line
-  }, [rowCount, colCount]);
+  }, [rowCount, colCount, startRow, startCol, endRow, endCol, size]);
 
   return (
     <div className="grid">
@@ -76,9 +121,9 @@ const Grid = ({ size }) => {
                   isWall={isWall}
                   size={size}
                   mouseIsPressed={mouseIsPressed}
-                  onMouseClick={(row, col) => handleMouseClick(row, col)}
+                  onMouseDown={(row, col) => handleMouseDown(row, col)}
                   onMouseHover={(row, col) => handleMouseHover(row, col)}
-                  onMouseUp={() => setMouseIsPressed(false)}
+                  onMouseUp={(row, col) => handleMouseUp(row, col)}
                 />
               );
             })}
