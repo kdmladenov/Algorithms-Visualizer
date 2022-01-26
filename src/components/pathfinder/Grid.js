@@ -1,19 +1,20 @@
 import React, { useEffect, useState } from 'react';
 import './styles/Grid.css';
 import Node from './Node';
+import { dijkstra, getNodesInShortestPathOrder } from '../../algorithms/dijkstra';
+import { randomNumber } from '../../constants/utility-functions';
 
-const Grid = ({ size }) => {
+const Grid = ({ size, toggle, setToggle }) => {
   const aspectRatio = 16 / 9; // cols/rows
-  const rowCount = Math.floor(90 / size);
+  const rowCount = Math.floor(85 / size);
   const colCount = Math.floor(rowCount * aspectRatio);
 
   const [grid, setGrid] = useState([]);
-  const [startRow, setStartRow] = useState(Math.floor(Math.random() * rowCount));
-  const [startCol, setStartCol] = useState(Math.floor(Math.random() * colCount));
-  const [endRow, setEndRow] = useState(Math.floor(Math.random() * rowCount));
-  const [endCol, setEndCol] = useState(Math.floor(Math.random() * colCount));
+  const [startRow, setStartRow] = useState(randomNumber(rowCount));
+  const [startCol, setStartCol] = useState(randomNumber(colCount));
+  const [endRow, setEndRow] = useState(randomNumber(rowCount));
+  const [endCol, setEndCol] = useState(randomNumber(colCount));
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
-  const [toggle, setToggle] = useState('');
 
   const handleMouseDown = (row, col) => {
     if (startRow === row && startCol === col) {
@@ -59,8 +60,8 @@ const Grid = ({ size }) => {
     const gridCopy = [...grid];
     let nodeToBeToggled = gridCopy[row][col];
 
-    const nodeToggled = 
-          toggle === 'wall'
+    const nodeToggled =
+      toggle === 'wall'
         ? (nodeToBeToggled = { ...nodeToBeToggled, isWall: !nodeToBeToggled.isWall })
         : toggle === 'weight'
         ? (nodeToBeToggled = { ...nodeToBeToggled, isWeight: !nodeToBeToggled.isWeight })
@@ -73,6 +74,38 @@ const Grid = ({ size }) => {
     gridCopy[row][col] = nodeToggled;
 
     return gridCopy;
+  };
+
+  const animateDijkstra = (visitedNodesInOrder, nodesInShortestPathOrder) => {
+    for (let i = 0; i <= visitedNodesInOrder.length; i++) {
+      if (i === visitedNodesInOrder.length) {
+        setTimeout(() => {
+          animateShortestPath(nodesInShortestPathOrder);
+        }, 10 * i);
+        return;
+      }
+      setTimeout(() => {
+        const node = visitedNodesInOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited';
+      }, 10 * i);
+    }
+  };
+
+  const animateShortestPath = (nodesInShortestPathOrder) => {
+    for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
+      setTimeout(() => {
+        const node = nodesInShortestPathOrder[i];
+        document.getElementById(`node-${node.row}-${node.col}`).className =
+          'node shortest_path';
+      }, 50 * i);
+    }
+  };
+  const visualizeDijkstra = () => {
+    const startNode = grid[startRow][startCol];
+    const endNode = grid[endRow][endCol];
+    const orderedVisitedNodes = dijkstra(grid, startNode, endNode);
+    const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
+    animateDijkstra(orderedVisitedNodes, nodesInShortestPathOrder);
   };
 
   useEffect(() => {
@@ -101,6 +134,7 @@ const Grid = ({ size }) => {
 
   return (
     <div className="grid">
+      <button onClick={() => visualizeDijkstra()}>Visualize Dijkstra's Algorithm</button>
       <div className="row">
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="col">
