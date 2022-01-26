@@ -1,0 +1,44 @@
+.header {
+  justify-content: flex-start;
+  gap: 30px;
+  height: 50px;
+  margin: 0 50px;
+}
+
+/* Toggle switch */
+.header .toggle_switch {
+  width: 180px;
+  gap: 0;
+}
+
+.header .toggle_switch input {
+  display: none;
+}
+
+.header .toggle_switch label {
+  height: 30px;
+  width: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid var(--gray);
+  box-shadow: var(--box_shadow);
+}
+
+.header .toggle_switch div:first-child label {
+  border-radius: var(--border_radius_left);
+}
+.header .toggle_switch div:last-child label {
+  border-radius: var(--border_radius_right);
+}
+
+.header .toggle_switch label img {
+  height: 27px;
+  width: 27px;
+  max-height: 27px;
+  max-width: 27px;
+}
+
+.header .toggle_switch input:checked + label {
+  border: 2px solid var(--orange);
+}
