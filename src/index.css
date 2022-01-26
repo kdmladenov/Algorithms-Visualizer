@@ -1,13 +1,52 @@
 body {
   margin: 0;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu',
+    'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue', sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
 
 code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New', monospace;
+}
+
+:root {
+  --black: #333;
+  --blue_light: #d9f2fb;
+  --red: #ff0000;
+  --orange: #ffa41c;
+  --green_dark: rgb(1, 113, 133);
+  --green: rgb(4, 214, 4);
+  --gray: #e0e5ec;
+  --gray_background: rgb(239, 242, 245);
+  --gray_light: #f3f3f3;
+  --gray_dark: #838383;
+  --white: #fff;
+  --border_radius: 5px;
+  --border_radius_top: 10px 10px 0 0;
+  --border_radius_bottom: 0 0 10px 10px;
+  --border_radius_left: 10px 0 0 10px;
+  --border_radius_right: 0 10px 10px 0;
+  --box_shadow: 0 0 1px rgb(0 0 0 / 20%), 0 4px 8px rgb(0 0 0 / 10%);
+  --box_shadow_2: 0 0.0625rem 0.125rem 0.0625rem rgb(0 0 0 / 15%);
+  --box_shadow_3: 0 3px 10px rgba(0, 0, 0, 0.2);
+  --box_shadow_angle: -7px -7px 20px 0 #fff9, -4px -4px 5px 0 #fff9, 7px 7px 20px 0px #0002,
+    4px 4px 5px 0px #0001, inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001,
+    inset 0px 0px 0px 0px #fff9, inset 0px 0px 0px 0px #0001;
+  --box_shadow_angle_active: 4px 4px 6px 0 rgba(255, 255, 255, 0.5),
+    -4px -4px 6px 0 rgba(116, 125, 136, 0.2), inset -4px -4px 6px 0px rgba(255, 255, 255, 0.5),
+    inset 4px 4px 6px 0px rgba(116, 125, 136, 0.2);
+}
+
+img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+.flex {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 10px;
 }

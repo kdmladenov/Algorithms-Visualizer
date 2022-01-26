@@ -1,6 +1,5 @@
 import React from 'react';
-import './styles/Node.css';
-
+import { icons } from '../../constants/constants';
 import './styles/Node.css';
 
 const Node = ({
@@ -26,21 +25,21 @@ const Node = ({
     ? 'weight'
     : '';
 
-    if (nodeConditionalClassName === 'weight') console.log('node');
-      return (
-        <div
-          style={{ height: `${size}vh`, width: `${size}vw` }}
-          id={`node-${row}-${col}`}
-          className={`node node-${nodeConditionalClassName}`}
-          onMouseDown={() => onMouseDown(row, col)}
-          onMouseEnter={() => onMouseHover(row, col)}
-          onMouseUp={() => onMouseUp(row, col)}
-          onDoubleClick={() => onMouseDoubleClick(row, col)}
-        >
-          {/* {nodeConditionalClassName === 'start' && <i className="fas fa-play"></i>}
-      {nodeConditionalClassName === 'end' && <i className="fas fa-stop"></i>} */}
-        </div>
-      );
+  return (
+    <div
+      style={{ height: `${size}vh`, width: `${size}vw` }}
+      id={`node-${row}-${col}`}
+      className={`node ${nodeConditionalClassName}`}
+      onMouseDown={() => onMouseDown(row, col)}
+      onMouseEnter={() => onMouseHover(row, col)}
+      onMouseUp={() => onMouseUp(row, col)}
+      onDoubleClick={() => onMouseDoubleClick(row, col)}
+    >
+      {nodeConditionalClassName && (
+        <img src={icons[nodeConditionalClassName]} alt={nodeConditionalClassName} />
+      )}
+    </div>
+  );
 };
 
 export default Node;
