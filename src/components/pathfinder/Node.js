@@ -10,9 +10,8 @@ const Node = ({
   isWall,
   isWeight,
   onMouseDown,
-  onMouseHover,
+  onMouseMove,
   onMouseUp,
-  onMouseDoubleClick,
   size
 }) => {
   const nodeConditionalClassName = isEnd
@@ -31,9 +30,8 @@ const Node = ({
       id={`node-${row}-${col}`}
       className={`node ${nodeConditionalClassName}`}
       onMouseDown={() => onMouseDown(row, col)}
-      onMouseEnter={() => onMouseHover(row, col)}
+      onMouseEnter={() => onMouseMove(row, col)}
       onMouseUp={() => onMouseUp(row, col)}
-      onDoubleClick={() => onMouseDoubleClick(row, col)}
     >
       {nodeConditionalClassName && (
         <img src={icons[nodeConditionalClassName]} alt={nodeConditionalClassName} />
