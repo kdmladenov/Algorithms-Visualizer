@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import './styles/Grid.css';
 import Node from './Node';
 import { dijkstra, getNodesInShortestPathOrder } from '../../algorithms/dijkstra';
-import { randomNumber } from '../../constants/utility-functions';
+import randomNumber from '../../helpers/randomNumber';
 
 const Grid = ({ size, toggle, setToggle }) => {
   const aspectRatio = 16 / 9; // cols/rows
@@ -22,17 +22,12 @@ const Grid = ({ size, toggle, setToggle }) => {
       setGrid(newGridWithToggledNode(row, col));
     } else if (endRow === row && endCol === col) {
       setToggle('end');
-      setGrid(newGridWithToggledNode(row, col));
-    } else {
-      setToggle('wall');
-      setGrid(newGridWithToggledNode(row, col));
     }
-
     setMouseIsPressed(true);
   };
 
-  const handleMouseHover = (row, col) => {
-    if (!mouseIsPressed || toggle === 'start' || toggle === 'end' || grid[row][col].isWall) return; //goes to handleMouseClick
+  const handleMouseMove = (row, col) => {
+    if (!mouseIsPressed || toggle === 'start' || toggle === 'end') return; //goes to handleMouseClick
     setGrid(newGridWithToggledNode(row, col));
   };
 
@@ -46,13 +41,6 @@ const Grid = ({ size, toggle, setToggle }) => {
       setEndCol(col);
     }
     setMouseIsPressed(false);
-    setGrid(newGridWithToggledNode(row, col));
-    setToggle('');
-  };
-
-  const handleMouseDoubleClick = (row, col) => {
-    if ((startRow === row && startCol === col) || (endRow === row && endCol === col)) return;
-    setToggle('weight');
     setGrid(newGridWithToggledNode(row, col));
   };
 
@@ -69,6 +57,12 @@ const Grid = ({ size, toggle, setToggle }) => {
         ? (nodeToBeToggled = { ...nodeToBeToggled, isStart: !mouseIsPressed })
         : toggle === 'end'
         ? (nodeToBeToggled = { ...nodeToBeToggled, isEnd: !mouseIsPressed })
+        : toggle === 'eraser'
+        ? (nodeToBeToggled = {
+            ...nodeToBeToggled,
+            isWall: false,
+            isWeight: false
+          })
         : nodeToBeToggled;
 
     gridCopy[row][col] = nodeToggled;
@@ -95,11 +89,11 @@ const Grid = ({ size, toggle, setToggle }) => {
     for (let i = 0; i < nodesInShortestPathOrder.length; i++) {
       setTimeout(() => {
         const node = nodesInShortestPathOrder[i];
-        document.getElementById(`node-${node.row}-${node.col}`).className =
-          'node shortest_path';
+        document.getElementById(`node-${node.row}-${node.col}`).className = 'node shortest_path';
       }, 50 * i);
     }
   };
+  
   const visualizeDijkstra = () => {
     const startNode = grid[startRow][startCol];
     const endNode = grid[endRow][endCol];
@@ -152,9 +146,8 @@ const Grid = ({ size, toggle, setToggle }) => {
                   isWeight={isWeight}
                   mouseIsPressed={mouseIsPressed}
                   onMouseDown={(row, col) => handleMouseDown(row, col)}
-                  onMouseHover={(row, col) => handleMouseHover(row, col)}
+                  onMouseMove={(row, col) => handleMouseMove(row, col)}
                   onMouseUp={(row, col) => handleMouseUp(row, col)}
-                  onMouseDoubleClick={(row, col) => handleMouseDoubleClick(row, col)}
                 />
               );
             })}
