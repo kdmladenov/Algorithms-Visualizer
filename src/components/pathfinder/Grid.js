@@ -1,19 +1,27 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useContext } from 'react';
 import './styles/Grid.css';
 import Node from './Node';
-import getRandomNumber from '../../helpers/getRandomNumber';
-import visualizeAlgorithm from '../../helpers/visualizeAlgorithm';
+import { AppContext } from '../../App';
 
-const Grid = ({ size, toggle, setToggle }) => {
-  const aspectRatio = 16 / 9; // cols/rows
-  const rowCount = Math.floor(85 / size);
-  const colCount = Math.floor(rowCount * aspectRatio);
+const Grid = () => {
+  const {
+    nodeSize,
+    toggle,
+    setToggle,
+    grid,
+    setGrid,
+    startRow,
+    setStartRow,
+    startCol,
+    setStartCol,
+    endRow,
+    setEndRow,
+    endCol,
+    setEndCol,
+    rowCount,
+    colCount
+  } = useContext(AppContext);
 
-  const [grid, setGrid] = useState([]);
-  const [startRow, setStartRow] = useState(getRandomNumber(rowCount));
-  const [startCol, setStartCol] = useState(getRandomNumber(colCount));
-  const [endRow, setEndRow] = useState(getRandomNumber(rowCount));
-  const [endCol, setEndCol] = useState(getRandomNumber(colCount));
   const [mouseIsPressed, setMouseIsPressed] = useState(false);
 
   const handleMouseDown = (row, col) => {
@@ -80,7 +88,7 @@ const Grid = ({ size, toggle, setToggle }) => {
           col: currCol,
           isStart: startRow === currRow && startCol === currCol,
           isEnd: endRow === currRow && endCol === currCol,
-          size,
+          size: nodeSize,
           distance: Infinity,
           isVisited: false,
           isWall: false,
@@ -92,13 +100,10 @@ const Grid = ({ size, toggle, setToggle }) => {
       }
     }
     setGrid(nodes);
-  }, [rowCount, colCount, startRow, startCol, endRow, endCol, size]);
+  }, [rowCount, colCount, startRow, startCol, endRow, endCol, nodeSize, setGrid]);
 
   return (
     <div className="grid">
-      <button onClick={() => visualizeAlgorithm(grid, startRow, startCol, endRow, endCol)}>
-        Run Algorithm
-      </button>
       <div className="row">
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="col">

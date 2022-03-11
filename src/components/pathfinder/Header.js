@@ -1,8 +1,13 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { AppContext } from '../../App';
 import { icons } from '../../constants/constants';
+import visualizeAlgorithm from '../../helpers/visualizeAlgorithm';
 import './styles/Header.css';
 
-const Header = ({ nodeSize, setNodeSize, toggle, setToggle }) => {
+const Header = () => {
+  const { nodeSize, setNodeSize, toggle, setToggle, grid, startRow, startCol, endRow, endCol } =
+    useContext(AppContext);
+
   return (
     <div className="header flex">
       <form className="toggle_switch flex">
@@ -34,6 +39,9 @@ const Header = ({ nodeSize, setNodeSize, toggle, setToggle }) => {
           max="10"
         />
       </fieldset>
+      <button onClick={() => visualizeAlgorithm(grid, startRow, startCol, endRow, endCol)}>
+        Run Algorithm
+      </button>
     </div>
   );
 };
