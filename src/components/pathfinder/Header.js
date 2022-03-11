@@ -22,10 +22,8 @@ const Header = ({ nodeSize, setNodeSize, toggle, setToggle }) => {
           </div>
         ))}
       </form>
-      <>
-        <label className="text-warning" htmlFor="nodes-amount">
-          Resize the Grid
-        </label>
+      <fieldset>
+        <legend>Resize the Grid</legend>
         <input
           name="nodes-amount"
           type="range"
@@ -35,7 +33,7 @@ const Header = ({ nodeSize, setNodeSize, toggle, setToggle }) => {
           min="2"
           max="10"
         />
-      </>
+      </fieldset>
     </div>
   );
 };
