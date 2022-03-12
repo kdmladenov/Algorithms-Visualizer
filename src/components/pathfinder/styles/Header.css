@@ -2,7 +2,7 @@
   justify-content: flex-start;
   gap: 30px;
   height: 50px;
-  margin: 0 50px;
+  margin: 10px 50px;
 }
 
 /* Toggle switch */
@@ -41,4 +41,54 @@
 
 .header .toggle_switch input:checked + label {
   border: 2px solid var(--orange);
+}
+
+/* Button */
+
+.header button {
+  display: block;
+  height: 26px;
+  width: fit-content;
+  min-width: 100px;
+  border: none;
+  margin: 0 20px;
+  padding: 5px 20px;
+  text-decoration: none;
+  letter-spacing: 1px;
+  font-size: 14px;
+  box-shadow: var(--box_shadow);
+  background: var(--mulah);
+  color: var(--white);
+  border-radius: 4px;
+  border-radius: 13px;
+}
+
+.header button:hover {
+  cursor: pointer;
+  filter: contrast(110%);
+}
+
+.header button:active {
+  transform: scale(0.95);
+}
+
+/* Select dropdown */
+
+.header select.dropdown_select {
+  width: 190px;
+  border: 1px solid var(--gray_dark);
+  border-radius: 5px;
+  background: var(--white);
+  font-size: 13px;
+  font-weight: 400;
+  box-shadow: var(--box_shadow);
+}
+
+/* Fieldset */
+
+.header fieldset {
+  height: 30px;
+  border: 1px solid var(--gray);
+  border-radius: 10px;
+  box-shadow: var(--box_shadow);
 }

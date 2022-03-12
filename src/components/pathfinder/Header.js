@@ -1,4 +1,4 @@
-import React, { useContext } from 'react';
+import React, { useContext, useState } from 'react';
 import { AppContext } from '../../App';
 import { icons } from '../../constants/constants';
 import visualizeAlgorithm from '../../helpers/visualizeAlgorithm';
@@ -7,6 +7,9 @@ import './styles/Header.css';
 const Header = () => {
   const { nodeSize, setNodeSize, toggle, setToggle, grid, startRow, startCol, endRow, endCol } =
     useContext(AppContext);
+
+  const [selectedAlgorithm, setSelectedAlgorithm] = useState('Dijkstra');
+  const [animationSpeed, setAnimationSpeed] = useState(10);
 
   return (
     <div className="header flex">
@@ -39,7 +42,48 @@ const Header = () => {
           max="10"
         />
       </fieldset>
-      <button onClick={() => visualizeAlgorithm(grid, startRow, startCol, endRow, endCol)}>
+      <fieldset>
+        <legend>Select Speed</legend>
+        <input
+          name="animation_speed"
+          type="range"
+          id="speed_slider"
+          value={animationSpeed}
+          onChange={(e) => setAnimationSpeed(e.target.value)}
+          min="1"
+          max="20"
+        />
+      </fieldset>
+      <select
+        className="dropdown_select"
+        name={selectedAlgorithm}
+        onChange={(e) => {
+          setSelectedAlgorithm(e.target.value);
+        }}
+      >
+        <option value="">{`Selected Algorithm: ${selectedAlgorithm}`}</option>
+        {['Dijkstra', 'A-Star', 'Dept First Search']
+          .filter((option) => option !== selectedAlgorithm)
+          .map((item) => (
+            <option key={item} value={item}>
+              {item}
+            </option>
+          ))}
+      </select>
+
+      <button
+        onClick={() =>
+          visualizeAlgorithm(
+            selectedAlgorithm,
+            grid,
+            startRow,
+            startCol,
+            endRow,
+            endCol,
+            animationSpeed
+          )
+        }
+      >
         Run Algorithm
       </button>
     </div>

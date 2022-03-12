@@ -12,11 +12,13 @@ code {
 
 :root {
   --black: #333;
+  --blue: rgb(21, 161, 250);
   --blue_light: #d9f2fb;
   --red: #ff0000;
   --orange: #ffa41c;
   --green_dark: rgb(1, 113, 133);
   --green: rgb(4, 214, 4);
+  --mulah: #1ac567;
   --gray: #e0e5ec;
   --gray_background: rgb(239, 242, 245);
   --gray_light: #f3f3f3;
