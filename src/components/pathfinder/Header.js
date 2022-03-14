@@ -30,6 +30,7 @@ const Header = () => {
           </div>
         ))}
       </form>
+
       <fieldset>
         <legend>Resize the Grid</legend>
         <input
@@ -42,6 +43,7 @@ const Header = () => {
           max="10"
         />
       </fieldset>
+
       <fieldset>
         <legend>Select Speed</legend>
         <input
@@ -54,22 +56,23 @@ const Header = () => {
           max="20"
         />
       </fieldset>
-      <select
-        className="dropdown_select"
-        name={selectedAlgorithm}
-        onChange={(e) => {
-          setSelectedAlgorithm(e.target.value);
-        }}
-      >
-        <option value="">{`Selected Algorithm: ${selectedAlgorithm}`}</option>
-        {['Dijkstra', 'A-Star', 'Dept First Search']
-          .filter((option) => option !== selectedAlgorithm)
-          .map((item) => (
+
+      <fieldset>
+        <legend>Select Algorithm</legend>
+        <select
+          className="dropdown_select"
+          name={selectedAlgorithm}
+          onChange={(e) => {
+            setSelectedAlgorithm(e.target.value);
+          }}
+        >
+          {['Dijkstra', 'A-Star', 'Dept First Search'].map((item) => (
             <option key={item} value={item}>
               {item}
             </option>
           ))}
-      </select>
+        </select>
+      </fieldset>
 
       <button
         onClick={() =>

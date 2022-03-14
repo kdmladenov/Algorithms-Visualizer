@@ -76,7 +76,7 @@
 
 .header select.dropdown_select {
   width: 190px;
-  border: 1px solid var(--gray_dark);
+  border: 1px solid var(--gray);
   border-radius: 5px;
   background: var(--white);
   font-size: 13px;
