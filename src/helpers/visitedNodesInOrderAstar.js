@@ -1,6 +1,6 @@
-import checkNeighbours from './checkNeighbours';
+import checkNeighbors from './checkNeighbors';
 
-const visitedNodesInOrderAstar = (startNode, endNode, grid) => {
+const visitedNodesInOrderAStar = (startNode, grid) => {
   let finalArray = [];
   let leastValueNode = startNode;
   let sortedNodeArray = [];
@@ -8,28 +8,21 @@ const visitedNodesInOrderAstar = (startNode, endNode, grid) => {
   sortedNodeArray.push(leastValueNode);
 
   while (!leastValueNode.isEnd || sortedNodeArray.length === 0) {
-    //for (let i = 0; i < 10; i++) {
-
-    //CHECK ALL NEIGHBOURS OF CURRENT NODE UPDATE DISTANCE AND HEURISTIC
-    //PUSH ALL NEIGHBOURS TO ARRAY SORT THE ARRAY AS PER THE SUM
-    //POP THE FIRST ELEMENT MARK IT AS VISITED
-    //CHECK FOR ALL NEIGHBOURS AND AGAIN SORT
-    leastValueNode = sortedNodeArray[0];
-    sortedNodeArray.shift();
+    leastValueNode = sortedNodeArray.shift();
 
     if (!leastValueNode.isVisited) {
       leastValueNode.isVisited = true;
       finalArray.push(leastValueNode);
     }
 
-    let row = leastValueNode.row;
-    let col = leastValueNode.col;
+    let { row, col } = leastValueNode;
+
     grid[row][col] = leastValueNode;
-    var values = checkNeighbours(leastValueNode, sortedNodeArray, row, col, grid);
-    grid = values[0];
-    sortedNodeArray = values[1];
+
+    [grid, sortedNodeArray] = checkNeighbors(leastValueNode, sortedNodeArray, row, col, grid);
   }
+
   return finalArray;
 };
 
-export default visitedNodesInOrderAstar;
+export default visitedNodesInOrderAStar;

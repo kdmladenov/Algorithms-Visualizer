@@ -1,6 +1,6 @@
 import updateAStarDistance from './updateAStarDistance';
 
-const checkNeighbours = (leastValueNode, sortedNodeArray, row, col, grid) => {
+const checkNeighbors = (leastValueNode, sortedNodeArray, row, col, grid) => {
   const isNodeValid = (node) =>
     !node.isVisited && !node.isWall && sortedNodeArray.indexOf(node) === -1;
 
@@ -24,9 +24,9 @@ const checkNeighbours = (leastValueNode, sortedNodeArray, row, col, grid) => {
     sortedNodeArray.push(grid[row][col + 1]);
   }
 
-  sortedNodeArray = sortedNodeArray.sort((a, b) => a.distAStar - b.distAStar);
+  sortedNodeArray = sortedNodeArray.sort((a, b) => a.distAstar - b.distAstar);
 
   return [grid, sortedNodeArray];
 };
 
-export default checkNeighbours;
+export default checkNeighbors;
