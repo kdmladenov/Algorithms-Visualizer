@@ -1,6 +1,6 @@
 import depthFirstSearch from '../algorithms/depthFirstSearch';
 import dijkstra from '../algorithms/dijkstra';
-import AStar from '../algorithms/AStar';
+import aStar from '../algorithms/aStar';
 import animateAlgorithmAndShortestPath from './animateAlgorithmAndShortestPath';
 import getNodesInShortestPathOrder from './getNodesInShortestPathOrder';
 
@@ -15,17 +15,22 @@ const visualizeAlgorithm = (
 ) => {
   const startNode = grid[startRow][startCol];
   const endNode = grid[endRow][endCol];
+  let orderedVisitedNodes = [];
 
-  const orderedVisitedNodes =
+  orderedVisitedNodes =
     selectedAlgorithm === 'Dijkstra'
       ? dijkstra(grid, startNode, endNode)
       : selectedAlgorithm === 'Dept First Search'
-      ? depthFirstSearch(grid, startNode)
+      ? depthFirstSearch(grid, startNode, orderedVisitedNodes)
       : selectedAlgorithm === 'A-Star'
-      ? AStar(startNode, endNode, grid)
+      ? aStar(startNode, endNode, grid)
       : null;
 
-  const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
+  const nodesInShortestPathOrder =
+    selectedAlgorithm !== 'Dept First Search'
+      ? getNodesInShortestPathOrder(endNode)
+      : orderedVisitedNodes;
+
   animateAlgorithmAndShortestPath(orderedVisitedNodes, nodesInShortestPathOrder, animationSpeed);
 };
 
