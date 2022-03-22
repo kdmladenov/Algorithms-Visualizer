@@ -1,7 +1,7 @@
 const updateAStarDistance = (leastValueNode, currentNode) => {
   currentNode.previousNode = leastValueNode;
   currentNode.distance = leastValueNode.distance + 1;
-  currentNode.distAstar = currentNode.distance + currentNode.heuristicDist;
+  currentNode.distAStar = currentNode.distance + currentNode.manhattanDist;
 
   return currentNode;
 };

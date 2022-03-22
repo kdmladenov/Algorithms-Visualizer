@@ -1,23 +1,20 @@
-import calculateHeuristicDist from './calculateHeuristicDist';
+import calculateManhattanDist from './calculateManhattanDist';
 
-const Heuristic = (endNode, grid) => {
+const heuristic = (endNode, grid) => {
   const rowsCount = grid.length;
   const columnsCount = grid[0].length;
 
   for (let row = 0; row < rowsCount; row++) {
     for (let col = 0; col < columnsCount; col++) {
       const node = grid[row][col];
-      
-      if (node.isWall) {
-        node.heuristicDist = 9999;
-      } else {
-        let totalDist = calculateHeuristicDist(node, endNode);
-        node.heuristicDist = totalDist;
-      }
+
+      node.manhattanDist = !node.isWall ? calculateManhattanDist(node, endNode) : Infinity;
+
       grid[row][col] = node;
     }
   }
+
   return grid;
 };
 
-export default Heuristic;
+export default heuristic;
