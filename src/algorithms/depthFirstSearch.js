@@ -1,8 +1,6 @@
 let flag = false;
 
 const depthFirstSearch = (grid, node, visitedNodesInOrder) => {
-
-
   visitedNodesInOrder.push(node);
   node.isVisited = true;
 
@@ -19,8 +17,8 @@ const depthFirstSearch = (grid, node, visitedNodesInOrder) => {
   if (node.isEnd) {
     flag = true;
     return visitedNodesInOrder;
-  }  
-  
+  }
+
   const isNodeValid = (node) => !node.isVisited && !node.isWall && !flag;
 
   // Top

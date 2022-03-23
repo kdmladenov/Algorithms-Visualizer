@@ -1,12 +1,25 @@
 import React, { useContext, useState } from 'react';
 import { AppContext } from '../../App';
 import { icons } from '../../constants/constants';
+import generateMaze from '../../helpers/generateMaze/generateMaze';
 import visualizeAlgorithm from '../../helpers/visualizeAlgorithm';
 import './styles/Header.css';
 
 const Header = () => {
-  const { nodeSize, setNodeSize, toggle, setToggle, grid, startRow, startCol, endRow, endCol } =
-    useContext(AppContext);
+  const {
+    nodeSize,
+    setNodeSize,
+    toggle,
+    setToggle,
+    grid,
+    setGrid,
+    startRow,
+    startCol,
+    endRow,
+    endCol,
+    rowCount,
+    colCount
+  } = useContext(AppContext);
 
   const [selectedAlgorithm, setSelectedAlgorithm] = useState('Dijkstra');
   const [animationSpeed, setAnimationSpeed] = useState(10);
@@ -88,6 +101,14 @@ const Header = () => {
         }
       >
         Run Algorithm
+      </button>
+      <button
+        onClick={() => {
+          const newGridWithMaze = generateMaze(grid, rowCount, colCount);
+          setGrid(newGridWithMaze);
+        }}
+      >
+        Generate Maze
       </button>
     </div>
   );
