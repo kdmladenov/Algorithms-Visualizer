@@ -1,5 +1,5 @@
-import heuristic from '../helpers/heuristic';
-import visitedNodesInOrderAStar from '../helpers/visitedNodesInOrderAStar';
+import heuristic from '../helpers/aStar/heuristic';
+import visitedNodesInOrderAStar from '../helpers/aStar/visitedNodesInOrderAStar';
 
 const aStar = (startNode, endNode, grid) => {
   const newGrid = heuristic(endNode, grid);

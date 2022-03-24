@@ -1,6 +1,6 @@
-import getAllNodes from '../helpers/getAllNodes';
-import sortNodesByDistance from '../helpers/sortNodesByDistance';
-import updateUnvisitedNeighbors from '../helpers/updateUnvisitedNeighbors';
+import getAllNodes from '../helpers/dijkstra/getAllNodes';
+import sortNodesByDistance from '../helpers/dijkstra/sortNodesByDistance';
+import updateUnvisitedNeighbors from '../helpers/dijkstra/updateUnvisitedNeighbors';
 
 const dijkstra = (grid, startNode, endNode) => {
   const visitedNodesInOrder = [];
