@@ -107,11 +107,11 @@ const Grid = () => {
       <div className="row">
         {grid.map((row, rowIndex) => (
           <div key={rowIndex} className="col">
-            {row.map((node, nodeIndex) => {
+            {row.map((node, i) => {
               const { row, col, isEnd, isStart, size, isWall, isWeight } = node;
               return (
                 <Node
-                  key={nodeIndex}
+                  key={i}
                   col={col}
                   row={row}
                   isStart={isStart}

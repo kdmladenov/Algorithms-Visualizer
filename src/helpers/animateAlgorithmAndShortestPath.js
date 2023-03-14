@@ -13,8 +13,8 @@ const animateAlgorithmAndShortestPath = (
       return;
     }
     setTimeout(() => {
-      const node = visitedNodesInOrder[i];
-      document.getElementById(`node-${node.row}-${node.col}`).className = 'node visited';
+      const {row, col} = visitedNodesInOrder[i];
+      document.getElementById(`node-${row}-${col}`).className = 'node visited';
     }, i * (100 / animationSpeed));
   }
 };

@@ -103,13 +103,7 @@ const Header = () => {
         Run Algorithm
       </button>
 
-      <button
-      className='maze_btn'
-        onClick={() => {
-          const newGridWithMaze = generateMaze(grid, rowCount, colCount);
-          setGrid(newGridWithMaze);
-        }}
-      >
+      <button className="maze_btn" onClick={() => setGrid(generateMaze(grid, rowCount, colCount))}>
         Generate Maze
       </button>
     </div>

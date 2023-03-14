@@ -1,4 +1,4 @@
-import getUnvisitedNeighbors from './getUnvisitedNeighbors';
+import getUnvisitedNeighbors from './dijkstra/getUnvisitedNeighbors';
 
 const updateUnvisitedNeighbors = (node, grid) => {
   const unvisitedNeighbors = getUnvisitedNeighbors(node, grid);
