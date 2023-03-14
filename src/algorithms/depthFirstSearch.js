@@ -1,6 +1,8 @@
+import updateUnvisitedNeighbors from '../helpers/updateUnvisitedNeighbors';
+
 let flag = false;
 
-const depthFirstSearch = (grid, node, visitedNodesInOrder) => {
+const depthFirstSearch = (grid, node, visitedNodesInOrder = []) => {
   visitedNodesInOrder.push(node);
   node.isVisited = true;
 
@@ -18,6 +20,8 @@ const depthFirstSearch = (grid, node, visitedNodesInOrder) => {
     flag = true;
     return visitedNodesInOrder;
   }
+
+  updateUnvisitedNeighbors(newNode, grid);
 
   const isNodeValid = (node) => !node.isVisited && !node.isWall && !flag;
 

@@ -26,10 +26,7 @@ const visualizeAlgorithm = (
       ? aStar(startNode, endNode, grid)
       : null;
 
-  const nodesInShortestPathOrder =
-    selectedAlgorithm !== 'Dept First Search'
-      ? getNodesInShortestPathOrder(endNode)
-      : orderedVisitedNodes;
+  const nodesInShortestPathOrder = getNodesInShortestPathOrder(endNode);
 
   animateAlgorithmAndShortestPath(orderedVisitedNodes, nodesInShortestPathOrder, animationSpeed);
 };
